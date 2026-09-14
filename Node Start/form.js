@@ -1,5 +1,5 @@
 const http = require('http')
-
+const queryString = require('querystring')
 const fs = require('fs');
 
 http.createServer((req, resp) => {
@@ -12,9 +12,18 @@ http.createServer((req, resp) => {
 
         resp.writeHead(200, { "content-type": 'text/html' })
 
-        if (req.url == '/') {
+        if (req.url === '/') {
             resp.write(data);
-        } else if (req.url == '/submit') {
+        } else if (req.url === '/submit') {
+          let dataBody = [];
+          req.on('data', (chunk)=>{
+            dataBody.push(chunk);
+          });
+          req.on('end',()=>{
+            let rawData = Buffer.concat(dataBody).toString();
+            let readableData = queryString.parse(rawData);
+            console.log(readableData);
+          })
             resp.write('<h1>Data submitted</h1>')
         }
 
