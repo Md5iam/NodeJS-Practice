@@ -1,13 +1,19 @@
-// const express = require('express');
-import express from 'express';
+import express from 'express'
+import home from './pages/home.js';
+import login from './pages/login.js';
+import submit from './pages/submit.js';
 const app = express();
-import home from "./pages/home.js"
 
-app.listen(3200);
+app.get("/", (req, resp) => {
+  resp.send(home());
+})
 
-app.get("", (req , res)=>{
-  res.send("<h1> Siam Ahmed </h1>")
+app.get("/login", (req, resp) => {
+  resp.send(login());
 })
-app.get("/home", (req , res)=>{
-  res.send(home())
+
+app.post("/submit", (req, resp) => {
+  resp.send(submit());
 })
+
+app.listen(3200)

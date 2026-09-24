@@ -1,3 +1,3 @@
 export default function home(){
-  return "<h1> Home </h1>"
+  return "<h1> Home </h1> <a href='/login'> Login </a> "
 }
